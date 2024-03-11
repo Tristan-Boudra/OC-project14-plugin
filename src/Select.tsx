@@ -8,16 +8,14 @@ interface Option {
 interface SelectProps {
     options: Option[];
     defaultOptionText: string;
-    onChange: (selectedValue: string) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ options, defaultOptionText, onChange }) => {
+export function Select({ options, defaultOptionText }: SelectProps) {
     const [selectedValue, setSelectedValue] = useState<string>('');
 
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
         setSelectedValue(selectedValue);
-        onChange(selectedValue);
     };
 
     return (
@@ -31,5 +29,3 @@ const Select: React.FC<SelectProps> = ({ options, defaultOptionText, onChange })
         </select>
     );
 };
-
-export default Select;
