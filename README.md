@@ -5,7 +5,7 @@ This project aims to create a plugin dropwdown in React.
 ## Instruction download
 
 1. [Download this package](https://www.npmjs.com/package/hrnet_plugin_boudra_tristan)
-2. For use it, follow the thos bellow.
+2. For use it, follow the code bellow.
 
 ```tsx
     <Select
