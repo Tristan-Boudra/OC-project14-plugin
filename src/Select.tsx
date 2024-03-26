@@ -1,49 +1,56 @@
-import React from 'react';
+import React from "react";
 
 interface CustomOption {
-    name: string;
-    abbreviation: string;
+  name: string;
+  abbreviation: string;
 }
 
 interface SelectProps {
-    id: string;
-    options: CustomOption[];
-    defaultOptionText: string;
-    value: string | null;
-    onChange: (selectedOption: CustomOption) => void;
+  id: string;
+  options: CustomOption[];
+  defaultOptionText: string;
+  value: string | null;
+  onChange: (selectedOption: CustomOption) => void;
 }
 
-/**
- * Renders a select element with options and handles the change event.
- *
- * @param {SelectProps} props - The props object containing the following properties:
- *   - id: The id of the select element.
- *   - options: An array of options for the select element.
- *   - defaultOptionText: The text to display as the default option.
- *   - value: The currently selected value.
- *   - onChange: A callback function to be called when the select value changes.
- * @return {JSX.Element} The rendered select element.
- */
-export function Select({ id, options, defaultOptionText, value, onChange }: SelectProps) {
-    /**
-     * Handles the change event of the select element and calls the onChange callback.
-     *
-     * @param {React.ChangeEvent<HTMLSelectElement>} event - The change event object.
-     */
-    const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedIndex = event.target.selectedIndex;
-        const selectedOption = options[selectedIndex - 1];
-        onChange(selectedOption);
-    };
+export function Select({
+  id,
+  options,
+  defaultOptionText,
+  value,
+  onChange,
+}: SelectProps) {
+  if (!Array.isArray(options) || options.length === 0) {
+    throw new Error("Options must be a non-empty array");
+  }
 
-    return (
-        <select id={id} className="formSelect" value={value || ''} onChange={handleOptionChange}>
-            <option className="formSelectOption" value={defaultOptionText}>{defaultOptionText}</option>
-            {options.map(option => (
-                <option className="formSelectOption" key={option.abbreviation} value={option.abbreviation}>
-                    {option.name || value}
-                </option>
-            ))}
-        </select>
-    );
-};
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = event.target.selectedIndex;
+    const selectedOption = options[selectedIndex - 1];
+    onChange(selectedOption);
+  };
+
+  return (
+    <select
+      id={id}
+      className="formSelect"
+      value={value || ""}
+      onChange={handleOptionChange}
+      aria-label={defaultOptionText}
+    >
+      <option className="formSelectOption" value="">
+        {defaultOptionText}
+      </option>
+      {options.map((option) => (
+        <option
+          className="formSelectOption"
+          key={option.abbreviation}
+          value={option.abbreviation}
+          aria-label={option.name}
+        >
+          {option.name}
+        </option>
+      ))}
+    </select>
+  );
+}

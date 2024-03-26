@@ -1,6 +1,6 @@
 {
   "name": "hrnet_plugin_boudra_tristan",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "HRNet component",
   "main": "index.js",
   "dependencies": {
